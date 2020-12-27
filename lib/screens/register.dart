@@ -108,7 +108,7 @@ class _registerpageState extends State<registerpage> {
                         setState(() {
                           _isInAsyncCall = false;
                         });
-                        if (response.statusCode == 201) {
+                        if (response.statusCode == 200) {
                           Navigator.pushNamed(context, '/home');
                         } else {
                           showMyDialog(

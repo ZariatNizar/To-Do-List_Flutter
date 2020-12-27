@@ -15,29 +15,24 @@ class _HomePageState extends State<HomePage> {
   String token = '';
   bool isAsyncCall = true;
   List<Task> listTasks = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     callApi();
-    /* getTokenSharedPref().then((value) {
-      setState(() {
-        token = value;
-        print(value);
-      });
-    });*/
   }
 
   void showSnackBar(BuildContext context, String text) {
     Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
-  callApi() {
-    ApiTask.getAllTasks().then((value) {
-      setState(() {
-        listTasks = value;
-        isAsyncCall = false;
-      });
+  callApi() async {
+    var value = await ApiTask.getAllTasks();
+
+    setState(() {
+      listTasks = value;
+      isAsyncCall = false;
     });
   }
 
