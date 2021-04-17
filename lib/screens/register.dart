@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app/api _codes/api_auth.dart';
 import 'package:login_app/colours.dart';
+import 'package:login_app/utils.dart';
 import 'package:login_app/widgets.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -115,37 +115,45 @@ class _registerpageState extends State<registerpage> {
                   child: t3Appbutton(
                     textContent: 'Sign Up',
                     onPressed: () {
-                      setState(() {
-                        _isInAsyncCall = true;
-                      });
-                      var body = {
-                        "CINNumber": CINNumbercontroller.text.toString(),
-                        "name": namecontroller.text.toString(),
-                        "LastName": LastNamecontroller.text.toString(),
-                        "Phone Number": (PhoneNumbercontroller.text.toString()),
-                        "email": emailcontroller.text.toString(),
-                        "password": passwordcontroller.text.toString(),
-                        "ConfirmPassword":
-                            ConfirmPasswordcontroller.text.toString(),
+                      if (!validatePhone(PhoneNumbercontroller.text)) {
+                        print('mouch tounsi');
+                      } else if (passwordcontroller.text !=
+                          ConfirmPasswordcontroller.text) {
+                        print('mouch kifkif');
+                      } else {
+                        // setState(() {
+                        //   _isInAsyncCall = true;
+                        // });
+                        var body = {
+                          "CINNumber": CINNumbercontroller.text.toString(),
+                          "name": namecontroller.text.toString(),
+                          "LastName": LastNamecontroller.text.toString(),
+                          "Phone Number":
+                              (PhoneNumbercontroller.text.toString()),
+                          "email": emailcontroller.text.toString(),
+                          "password": passwordcontroller.text.toString(),
+                          "ConfirmPassword":
+                              ConfirmPasswordcontroller.text.toString(),
 
-                        /* ************* a voir les param a envoyer en inscription************************************/
-                        "age": 20
-                      };
-                      print(body);
-                      ApiAuth.register(body).then((response) {
-                        setState(() {
-                          _isInAsyncCall = false;
-                        });
-                        if (response.statusCode == 200) {
-                          Navigator.pushNamed(context, '/home');
-                        } else {
-                          showMyDialog(
-                              context, 'error', response.body.toString(), () {
-                            Navigator.pop(context);
-                          });
-                          print(response.body);
-                        }
-                      });
+                          /* ************* a voir les param a envoyer en inscription************************************/
+                          "age": 20
+                        };
+                        print(body);
+                        // ApiAuth.register(body).then((response) {
+                        //   setState(() {
+                        //     _isInAsyncCall = false;
+                        //   });
+                        //   if (response.statusCode == 200) {
+                        //     Navigator.pushNamed(context, '/home');
+                        //   } else {
+                        //     showMyDialog(
+                        //         context, 'error', response.body.toString(), () {
+                        //       Navigator.pop(context);
+                        //     });
+                        //     print(response.body);
+                        //   }
+                        // });
+                      }
                     },
                   ),
                 ),

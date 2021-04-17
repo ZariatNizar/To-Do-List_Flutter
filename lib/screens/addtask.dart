@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:login_app/api%20_codes/apitasks.dart';
 import 'package:login_app/colours.dart';
+import 'package:login_app/models/Data.dart';
 import 'package:login_app/widgets.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -338,31 +339,43 @@ class _addtaskpageState extends State<addtaskpage> {
     'Ettahrir',
     'Carthage'
   ];
-  var RegionsZaghouan = [
-    'El Fahs',
-    'Zaghouan',
-    'Nadhour',
-    'Bir Mcherga',
-    'Zriba',
-    'Saouaf'
-  ];
+  // var RegionsZaghouan = [
+  //   'El Fahs',
+  //   'Zaghouan',
+  //   'Nadhour',
+  //   'Bir Mcherga',
+  //   'Zriba',
+  //   'Saouaf'
+  // ];
 
   var risk = ['GRELE', 'INCENDIE', 'MULTIRISQUES SERRES'];
   List<String> regions = [];
-
+  int selectedRadio;
+  int selectedRadioTile;
   @override
   void initState() {
     super.initState();
     regions = RegionsTunis;
   }
 
-  int selectedRadio;
-  /* @override
+  @override
   void initStateRadio() {
-    super.initStateRadio();
-    selectedRadio=0;
+    super.initState();
+    selectedRadio = 0;
   }
-*/
+
+  setSelectedRadio(int val) {
+    setState(() {
+      selectedRadio = val;
+    });
+  }
+
+  setSelectedRadioTile(int val) {
+    setState(() {
+      selectedRadioTile = val;
+    });
+  }
+
   var _currentItemSelected = 'Tunis';
   var _currentRegionSelected = 'Hrairia';
   var _currentRiskSelected = 'GRELE';
@@ -376,6 +389,7 @@ class _addtaskpageState extends State<addtaskpage> {
       body: ModalProgressHUD(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
               Row(
@@ -404,6 +418,9 @@ class _addtaskpageState extends State<addtaskpage> {
                       );
                     }).toList(),
                     onChanged: (String newValueSelected) {
+                      setState(() {
+                        _currentRegionSelected = newValueSelected;
+                      });
                       //mycodeof regions which wil be applied on the second dropdown
                       //_onDropDownItemSelected(newValueSelected);
                     },
@@ -476,21 +493,18 @@ class _addtaskpageState extends State<addtaskpage> {
               t3EditTextField('Rendement attendu ', taskcontroller,
                   isPassword: false),
               SizedBox(height: 20),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(21, 0, 16, 16),
-                    child: Text('Prix de ventes',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.fromLTRB(21, 0, 16, 16),
+                child: Text('Prix de ventes',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                    )),
               ),
               t3EditTextField('Prix de ventes ', taskcontroller,
                   isPassword: false),
-              SizedBox(height: 20),
+              widgetRisk(),
+              widgetStockage(),
               t3EditTextField('Commentaire...', taskcontroller,
                   isPassword: false),
               SizedBox(height: 20),
@@ -533,6 +547,121 @@ class _addtaskpageState extends State<addtaskpage> {
         ),
       ),
     );
+  }
+
+  Widget widgetRisk() {
+    switch (_currentRiskSelected) {
+      case "INCENDIE":
+        {
+          return Column(
+            children: [
+              SizedBox(height: 20),
+              RadioListTile(
+                value: 1,
+                groupValue: selectedRadioTile,
+                title: Text(
+                  'stockage en plein air',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onChanged: (val) {
+                  print("radio tile pressed $val");
+                  setSelectedRadioTile(val);
+                },
+                activeColor: colorPrimary,
+                selected: true,
+              ),
+              RadioListTile(
+                value: 2,
+                groupValue: selectedRadioTile,
+                title: Text(
+                  'stockage sous hangar',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onChanged: (val) {
+                  print("radio tile pressed $val");
+                  setSelectedRadioTile(val);
+                },
+                activeColor: colorPrimary,
+                selected: false,
+              ),
+              SizedBox(height: 20),
+            ],
+          );
+        }
+        break;
+
+      case "GRELE":
+        {
+          return Container(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.fromLTRB(21, 0, 16, 16),
+                child: Text(
+                  'les risques possibles',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Container(
+                child: t3EditTextField('les risques possibles ', taskcontroller,
+                    isPassword: false),
+              ),
+              SizedBox(height: 20),
+            ],
+          ));
+        }
+        break;
+      default:
+        return SizedBox(height: 10);
+    }
+  }
+
+  Widget widgetStockage() {
+    if (_currentRiskSelected == "INCENDIE") {
+      switch (selectedRadioTile) {
+        case 1:
+          {
+            return Column(
+              children: [
+                t3EditTextField('Nature stock', taskcontroller,
+                    isPassword: false),
+                SizedBox(height: 10),
+                t3EditTextField('Quantity', taskcontroller, isPassword: false),
+                SizedBox(height: 10),
+                t3EditTextField('Prix', taskcontroller, isPassword: false),
+                SizedBox(height: 20),
+              ],
+            );
+          }
+          break;
+        case 2:
+          {
+            return Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  t3EditTextField('valeur du bâtiment', taskcontroller,
+                      isPassword: false),
+                  SizedBox(height: 10),
+                  t3EditTextField('la valeur des produits', taskcontroller,
+                      isPassword: false),
+                  SizedBox(height: 20),
+                ],
+              ),
+            );
+          }
+          break;
+        default:
+          return SizedBox(height: 10);
+      }
+    } else {
+      return SizedBox(height: 10);
+    }
   }
 
   void _onDropDownItemSelected(String newValueSelected) {
@@ -714,61 +843,7 @@ class _addtaskpageState extends State<addtaskpage> {
 
   void _onDropDownRiskSelected(String newValueSelected) {
     setState(() {
-      switch (newValueSelected) {
-        case "INCENDIE":
-          {
-            ButtonBar(
-              children: <Widget>[
-                Radio(
-                  value: 1,
-                  groupValue: 2,
-                  activeColor: t3_edit_background,
-                  onChanged: (val) {
-                    print("Radio $val");
-                  },
-                )
-              ],
-            );
-            ButtonBar(
-              children: <Widget>[
-                Radio(
-                  value: 2,
-                  groupValue: 2,
-                  activeColor: t3_edit_background,
-                )
-              ],
-            );
-          }
-          break;
-
-        case "GRELE":
-          {
-            Container(
-                child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(21, 0, 16, 16),
-                  child: Text('les risques possibles',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      )),
-                ),
-              ],
-            ));
-            t3EditTextField('les risques possibles ', taskcontroller,
-                isPassword: false);
-          }
-          break;
-        case "MULTIRISQUES SERRES":
-          {
-            this.regions = this.RegionsBeja;
-            this._currentRegionSelected = RegionsBeja[0];
-          }
-          break;
-
-          this._currentRiskSelected = newValueSelected;
-      }
+      this._currentRiskSelected = newValueSelected;
     });
   }
 }

@@ -41,6 +41,6 @@ var RegionsTataouine =
 var RegionsTozeur = 'Tozeur,Degache,Nefta,Tameghza,Hazoua';
 var RegionsTunis =
     'Hrairia,El Kabaria,Sidi Hassine,La Marsa,Le Bardo,El Omrane supérieur,Le Kram,El Menzah,El Omrane,Ezzouhour,Bab El Bhar,Cité El Khadra,Séjoumi,El Ouardia,Bab Souika,Sidi El Béchir,La Goulette,Médina,Djebel Jelloud,Ettahrir,Carthage';
-var RegionsZaghouan = 'El Fahs,Zaghouan,Nadhour,Bir Mcherga,Zriba,Saouaf';
+var RegionsZaghouan = ['El Fahs,Zaghouan,Nadhour,Bir Mcherga,Zriba,Saouaf'];
 var RegionsKef =
     'Kef Est,Dahmani,Tajerouine,Kef Ouest,Nebeur,Sers,Sakiet Sidi Youssef,El Ksour,Kalaat Senan,Jérissa,Kalâat Khasba';
