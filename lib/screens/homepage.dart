@@ -47,9 +47,120 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            Container(
+              height: 80.0,
+              child: DrawerHeader(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(100, 00, 10, 00),
+                  padding: EdgeInsets.all(00.0),
+                  child: Text('Menu',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold)),
+                ),
+                decoration: BoxDecoration(
+                  color: colorPrimary,
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Mes parcelles',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Mes sinistres',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Déclarer un sinistre',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Mon compte',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Nous contacter',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
+        ),
+        /*child: Row(
+        children: [
+          Column(children: [SizedBox(height: 500000)]),
+          Column(children: [
+            Card(
+                child: Text(
+              'Notifications',
+              style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+            )),
+          ])
+        ],
+      )*/
+      ),
       appBar: AppBar(
-        title: Text('inchallah list'),
+        title: Text('CTAMAPP'),
         backgroundColor: colorPrimary,
       ),
       body: Column(

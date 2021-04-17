@@ -17,6 +17,7 @@ class _loginState extends State<login> {
   bool isRemember = false;
   var emailcontroller = TextEditingController();
   var passwordcontroller = TextEditingController();
+
   bool _isInAsyncCall = false;
   @override
   Widget build(BuildContext context) {
@@ -43,17 +44,17 @@ class _loginState extends State<login> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Inchalah",
+                            Text("CtamApp",
                                 style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white)),
                             SizedBox(height: 4),
-                            Text("List",
+                            /*Text("List",
                                 style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
+                                    color: Colors.white)),*/
                           ],
                         ),
                       )
@@ -65,7 +66,7 @@ class _loginState extends State<login> {
                   margin: EdgeInsets.only(right: 45),
                   transform: Matrix4.translationValues(25, -45, 0),
                   child: Image.asset(
-                    'assets/todo.png',
+                    'assets/ctama.png',
                     height: 100,
                     width: 100,
                   ),
@@ -74,6 +75,8 @@ class _loginState extends State<login> {
                 SizedBox(height: 16),
                 t3EditTextField('password', passwordcontroller,
                     isPassword: true),
+                SizedBox(height: 16),
+                /***********************************************************************************/
                 SizedBox(height: 16),
                 Container(
                   margin: EdgeInsets.only(left: 16),

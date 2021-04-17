@@ -14,7 +14,12 @@ class _registerpageState extends State<registerpage> {
   var passwordcontroller = TextEditingController();
   var emailcontroller = TextEditingController();
   var namecontroller = TextEditingController();
+  var LastNamecontroller = TextEditingController();
+  var PhoneNumbercontroller = TextEditingController();
+  var CINNumbercontroller = TextEditingController();
+  var ConfirmPasswordcontroller = TextEditingController();
   bool _isInAsyncCall = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,17 +45,17 @@ class _registerpageState extends State<registerpage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Inchalah",
+                            Text("CtamApp",
                                 style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white)),
                             SizedBox(height: 4),
-                            Text("List",
+                            /*Text("List",
                                 style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
+                                    color: Colors.white)),*/
                           ],
                         ),
                       )
@@ -68,7 +73,7 @@ class _registerpageState extends State<registerpage> {
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange),
+                            color: colorPrimary),
                       ),
                     ),
                     Container(
@@ -76,7 +81,7 @@ class _registerpageState extends State<registerpage> {
                       margin: EdgeInsets.only(right: 45),
                       transform: Matrix4.translationValues(25, -45, 0),
                       child: Image.asset(
-                        'assets/todo.png',
+                        'assets/ctama.png',
                         height: 100,
                         width: 100,
                       ),
@@ -85,10 +90,25 @@ class _registerpageState extends State<registerpage> {
                 ),
                 t3EditTextField('Email', emailcontroller, isPassword: false),
                 SizedBox(height: 16),
-                t3EditTextField('password', passwordcontroller,
+                t3EditTextField('Name', namecontroller, isPassword: false),
+                SizedBox(height: 16),
+                t3EditTextField('Last Name', LastNamecontroller,
+                    isPassword: false),
+                SizedBox(height: 16),
+                t3EditTextField(
+                  'Phone Number',
+                  PhoneNumbercontroller,
+                  isPassword: false,
+                ),
+                SizedBox(height: 16),
+                t3EditTextField('CIN Number', CINNumbercontroller,
+                    isPassword: false),
+                SizedBox(height: 16),
+                t3EditTextField('Password', passwordcontroller,
                     isPassword: true),
                 SizedBox(height: 16),
-                t3EditTextField('name', namecontroller, isPassword: false),
+                t3EditTextField('Confirm Password', ConfirmPasswordcontroller,
+                    isPassword: true),
                 SizedBox(height: 16),
                 Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -99,11 +119,19 @@ class _registerpageState extends State<registerpage> {
                         _isInAsyncCall = true;
                       });
                       var body = {
+                        "CINNumber": CINNumbercontroller.text.toString(),
                         "name": namecontroller.text.toString(),
+                        "LastName": LastNamecontroller.text.toString(),
+                        "Phone Number": (PhoneNumbercontroller.text.toString()),
                         "email": emailcontroller.text.toString(),
                         "password": passwordcontroller.text.toString(),
+                        "ConfirmPassword":
+                            ConfirmPasswordcontroller.text.toString(),
+
+                        /* ************* a voir les param a envoyer en inscription************************************/
                         "age": 20
                       };
+                      print(body);
                       ApiAuth.register(body).then((response) {
                         setState(() {
                           _isInAsyncCall = false;
@@ -143,10 +171,12 @@ class _registerpageState extends State<registerpage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),
           inAsyncCall: _isInAsyncCall,
+
           // demo of some additional parameters
           opacity: 0.5,
           progressIndicator: CircularProgressIndicator(),
